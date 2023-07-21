@@ -70,3 +70,23 @@ class MY_DATABASE:
                     )"""
         cursor.execute(sql_command)
 
+    def drop_post_table():
+        '''function to drop questions table'''
+        cursor = MY_DATABASE.connect_to_db()
+        sql_command = """ DROP TABLE \"post\" CASCADE;"""
+        cursor.execute(sql_command)
+
+
+    def drop_comment_table():
+        '''function to drop answers table'''
+        cursor =MY_DATABASE.connect_to_db()
+        sql_command = """ DROP TABLE \"comment\" CASCADE;"""
+        cursor.execute(sql_command)
+
+
+    def drop_users_table():
+        '''function to drop answers table'''
+        cursor =MY_DATABASE.connect_to_db()
+        sql_command = """ DROP TABLE \"user\" CASCADE;"""
+        cursor.execute(sql_command)
+
