@@ -4,7 +4,7 @@ const Sizebar = ({isSidebarOpen}) => {
   return (
    
   <nav id="sidebarMenu"
-  className={`collapse ${isSidebarOpen ? 'show' : ''}`}>
+  className="collapse d-lg-block sidebar collapse bg-white">
     <div className="position-sticky">
       <div className="list-group list-group-flush mx-3 mt-4">
       <a

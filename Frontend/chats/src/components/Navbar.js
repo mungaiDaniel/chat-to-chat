@@ -1,7 +1,7 @@
 import React from 'react'
 import logo from '../assets/logo.jpg'
 
-const Navbar = ({handleSlidebarToggle, isSidebarOpen }) => {
+const Navbar = () => {
   return (
     <nav
        id="main-navbar"
@@ -11,13 +11,12 @@ const Navbar = ({handleSlidebarToggle, isSidebarOpen }) => {
     <div className="container-fluid">
     
       <button
-              onClick={handleSlidebarToggle}
               className="navbar-toggler m-1"
               type="button"
               data-mdb-toggle="collapse"
               data-mdb-target="#sidebarMenu"
               aria-controls="sidebarMenu"
-              aria-expanded ={isSidebarOpen ? 'true' : 'false'}
+              aria-expanded ='false'
               aria-label="Toggle navigation"
               >
         <i className="fas fa-bars"></i>
