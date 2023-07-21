@@ -1,13 +1,12 @@
 import json
 import unittest
-import datetime
 
 from main import app
 from database.database import MY_DATABASE
 from app.posts.model import PostModel
 from config import TestingConfig
 from helper_function import register_user
-from helper_function import post_quiz, register_user, login_user
+from helper_function import post_posts ,register_user, login_user
 
 class TestPost(unittest.TestCase):
 
@@ -23,7 +22,7 @@ class TestPost(unittest.TestCase):
         # setting up configurations for testing
         self.app = app
         self.app.config.from_object(TestingConfig)
-        self.new_question = PostModel(id=4, title="how to init python",
+        self.new_post = PostModel(id=4, title="how to init python",
                                      body="how to init python how to init python how to init python", user_id=1)
         self.client = self.app.test_client()
         self.app.testing = True
@@ -32,24 +31,24 @@ class TestPost(unittest.TestCase):
         self.token = json.loads(response.data.decode())['token']
 
     def test_posts(self):
-        response = post_quiz(self)
+        response = post_posts(self)
         self.assertEqual(response.status_code, 201)
 
     def test_get_a_single_post(self):
         # test can get a single post
-        post_quiz(self)
+        post_posts(self)
         response = self.client.get(f'api/v1/post/1', content_type='application/json')
         result = json.loads(response.data.decode())
         self.assertEqual(response.status_code, 200)
 
     def test_get_non_existing_post(self):
-        # test can get a none existing question
+        # test can get a none existing post
         response = self.client.get(f'api/v1/post/145678', content_type='application/json')
         result = json.loads(response.data.decode())
         self.assertEqual(response.status_code, 404)
 
     def test_get_all_post(self):
-        # test can get all questions
+        # test can get all post
         response = self.client.get('/api/v1/post', content_type='application/json')
         self.assertEqual(response.status_code, 200)
         self.assertTrue(type(response), list)

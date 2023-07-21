@@ -148,7 +148,7 @@ class UserModel(MY_DATABASE):
         
     @classmethod
     def find_email(cls, id):
-        '''method to find a user by id'''
+        '''method to find am email'''
         try:
             format_str = f"""SELECT * FROM public.user WHERE id = {id}  LIMIT 1
                         """
