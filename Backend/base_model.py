@@ -5,7 +5,7 @@ from sqlalchemy.orm import declarative_base
 from utils.responses import m_return
 import utils.responses as resp
 import logging
-from flask import jsonify, make_response
+from Backend.main import db
 
 
 class BaseModel(object):
@@ -17,7 +17,7 @@ class BaseModel(object):
 
     __abstract__ = True
 
-    created_by = Column(String(100), nullable=False, default="SYSTEM")
+    created_by = db.Column(db.String(100), nullable=False, default="SYSTEM")
     def save(self, session):
         session.add(self)
         session.commit()
@@ -35,6 +35,7 @@ class BaseModel(object):
 
         try:
             items = session.query(self).get(id)
+            print('::::::::::::', items)
 
             if items:
 
