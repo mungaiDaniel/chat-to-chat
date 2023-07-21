@@ -2,25 +2,31 @@ import json
 
 def register_user(self):
     '''register user'''
+    new_user = {
+        "name": "Leanne Graham",
+    "username": "Bret",
+    "email": "Sincere@april.biz",
+    "address": {
+      "street": "Kulas Light",
+      "suite": "Apt. 556",
+      "city": "Gwenborough",
+      "zipcode": "92998-3874",
+      "geo": {
+        "lat": "-37.3159",
+        "lng": "81.1496"
+      }
+    },
+    "phone": "1-770-736-8031 x56442",
+    "website": "hildegard.org",
+    "company": {
+      "company_name": "Romaguera-Crona",
+      "catchPhrase": "Multi-layered client-server neural-net",
+      "bs": "harness real-time e-markets"
+    }
+  }
     return self.client.post(
         'api/v1/register',
-        data=json.dumps(dict(
-            name = "name", 
-            username = "username", 
-            email = "email", 
-            suite = "suite", 
-            street = "address""street",
-            city = "address""city",
-            zipcode = "address""zipcode",
-            lat = "address""geo""lat", 
-            lng = "address""geo""lng",
-            phone = "phone", 
-            website= "website",
-            campany_name = "company""name",
-            catchPhrase = "company""catchPhrase",
-            bs = "company""bs",
-            user_role = "user",
-        )),
+        data=json.dumps(new_user),
         content_type='application/json'
     )
 
@@ -32,8 +38,8 @@ def register_user2(self):
             name = "name22", 
             username = "username222", 
             email = "email22@com", 
-            suite = "suite344", 
             street = "address""street433",
+            suite = "address""suite344", 
             city = "address""city333",
             zipcode = "address""zipcode333",
             lat = "address""geo""lat333", 
@@ -53,8 +59,8 @@ def login_user(self):
     return self.client.post(
         'api/v1/login',
         data=json.dumps(dict(
-            username = "username",
-            zipcode = "zipcode",
+            username = "Bret",
+            zipcode = "92998-3874"
         )),
         content_type='application/json'
     )
@@ -63,7 +69,7 @@ def post_quiz(self):
     '''loginthe registered user'''
     response = login_user(self)
     result = json.loads(response.data)
-    self.assertIn("access_token", result)
+    self.assertIn("token", result)
     new_question = {'user_id': 1, 'title': 'error sit voluptatem accusantium doloremque laudantium',
                     'body': 'error sit voluptatem accusantium doloremque laudantiumerror sit volupta'}
     response = self.client.post('api/v1/post', data=json.dumps(new_question),

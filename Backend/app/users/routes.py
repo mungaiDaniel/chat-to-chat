@@ -16,7 +16,7 @@ def post():
     email = data['email']
     # if UserModel.find_by_username(data['username']):
     #         return {'message': 'This username is already taken,kindly try another username'}, 409
-    street= data['address']['street']
+    street= data["address"]["street"]
     suite = data["address"]["suite"]
     city = data["address"]["city"]
     zipcode =UserModel.generate_hash(data["address"]["zipcode"])
