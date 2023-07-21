@@ -125,17 +125,17 @@ class TestUsers(unittest.TestCase):
 
     
 
-    # def test_login(self):
-    #     register_user(self)
-    #     response = self.client.post(
-    #     'api/v1/login',
-    #     data=json.dumps(dict(
-    #         username = "username",
-    #         zipcode = "zipcode",
-    #     )),
-    #     content_type='application/json'
-    # )
-    #     data = json.loads(response.data)
+    def test_login(self):
+        register_user(self)
+        response = self.client.post(
+        'api/v1/login',
+        data=json.dumps(dict(
+            username = "Bret",
+            zipcode = "92998-3874"
+        )),
+        content_type='application/json'
+    )
+        data = json.loads(response.data)
 
-    #     self.assertEqual(response.status_code, 200) 
-    #     self.assertTrue('token' in data)
+        self.assertEqual(response.status_code, 200) 
+        self.assertTrue('token' in data)
