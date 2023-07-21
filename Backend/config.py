@@ -1,27 +1,42 @@
 import os
 
-postgre_local_base = "postgresql://postgres:username@localhost/chat"
-    
-class TestingConfig():
-        TESTING = True
-        DEBUG = False
-        SECRET_KEY = os.environ.get('SECRET_KEY') or 'you-willguess'
-        SQLALCHEMY_DATABASE_URI = "postgresql://postgres:username@localhost/Tests"
-        SQLALCHEMY_TRACK_MODIFICATIONS = False
 
-        
-class DevelopmentConfig():
-        SECRET_KEY = os.environ.get('SECRET_KEY') or 'you-will-never-guess'
-        SQLALCHEMY_DATABASE_URI = postgre_local_base
-        DEBUG = True
-        DEVELOPMENT = True
-        SQLALCHEMY_TRACK_MODIFICATIONS = False
-        
-class ProductionConfig():
-        
-        SECRET_KEY = 'my_precious'
-        DEBUG = False
-        SQLALCHEMY_DATABASE_URI = 'postgresql:///example'
-        
-        
-        
+class Config(object):
+    DEBUG = True
+    TESTING = False
+    CSRF_ENABLED = True
+    JWT_SECRET_KEY = os.environ.get('JWT_SECRET_KEY') or 'you-will-never-guess'
+    
+
+
+class ProductionConfig(Config):
+    DEBUG = True
+
+
+class StagingConfig(Config):
+    DATABASE_URL = os.environ.get('DATABASE_URL')
+    DEVELOPMENT = True
+    DEBUG = True
+
+
+class DevelopmentConfig(Config):
+    SECRET_KEY = os.environ.get('SECRET_KEY') or 'you-will-never-guess'
+    DATABASE_URL = os.environ.get('DATABASE_URL')
+    DEVELOPMENT = True
+    DEBUG = True
+
+
+class TestingConfig(Config):
+    SECRET_KEY = os.environ.get('SECRET_KEY') or 'you-will-never-guess'
+    DATABASE_URL = os.environ.get('DATABASE_TEST_URL')
+    TESTING = True
+
+
+app_config = {
+    'production': ProductionConfig,
+    'development': DevelopmentConfig,
+    'testing': TestingConfig,
+    'default': DevelopmentConfig
+}
+
+# postgresql://postgres:username@localhost/Chats
