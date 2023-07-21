@@ -6,6 +6,7 @@ from database.database import MY_DATABASE
 from config import DevelopmentConfig
 from app.users.routes import user_v1
 from app.posts.routes import post_v1
+from app.comments.routes import comment_v1
 
 
 
@@ -17,6 +18,7 @@ JWTManager(app)
 CORS(app)
 app.register_blueprint(user_v1)
 app.register_blueprint(post_v1)
+app.register_blueprint(comment_v1)
 
 MY_DATABASE.connect_to_db()
 MY_DATABASE.create_user_table()
