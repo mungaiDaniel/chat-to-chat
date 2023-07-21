@@ -82,8 +82,8 @@ def post_answer(self):
     response = login_user(self)
     result = json.loads(response.data)
     self.assertIn("token", result)
-    new_answer = { 'body': 'error sit voluptatem accusantium doloremque laudantiumerror sit volupta'}
-    response = self.client.post('/api/v2/answer/4', data=json.dumps(new_answer),
-                                headers={'Authorization': f'Bearer {result["access_token"]}',
-                                         'Content-Type': 'application' '/json'})
+    new_comment = {"name":" kndwjwdjsnksia ",  'body': 'errossssssssssssssssssssssssssssssssssssssssssssssssss'}
+    response = self.client.post('/api/v1/comment/1', data=json.dumps(new_comment),
+                                    headers={'Authorization': f'Bearer {result["token"]}',
+                                             'Content-Type': 'application' '/json'})
     return response
