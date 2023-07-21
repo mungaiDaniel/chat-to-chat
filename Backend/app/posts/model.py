@@ -24,14 +24,16 @@ class PostModel(MY_DATABASE):
     def save(self , user_id , title, body):
         '''method to save a question'''
         format_str = f"""
-         INSERT INTO public.questions (title,body,user_id,date_created,date_modified)
+         INSERT INTO public.post (user_id,title,body)
          VALUES ('{user_id}', '{title}','{body}') ;
          """
+        print("<><><><><>", format_str)
         cursor.execute(format_str)
         return {
+            "user_id": user_id,
             "title": title,
             "body": body,
-            "user_id": user_id
+            
         }
     def json_dumps(self):
         '''method to return a json object from the question details'''
@@ -39,7 +41,7 @@ class PostModel(MY_DATABASE):
             "id": self.id,
             "title": self.title,
             "body": self.body,
-            "user": UserModel.find_by_id(self.user_id),
+            "user_id": self.user_id,
             "comments": CommentsModel.get_all_post_comments(self.id)
         }
         return obj

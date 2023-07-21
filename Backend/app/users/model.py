@@ -63,11 +63,11 @@ class UserModel(MY_DATABASE):
     
         if permission_level == 1:
 
-            token = create_access_token(identity=self.username, additional_claims={'admin': 1})
+            token = create_access_token(identity=self.id, additional_claims={'admin': 1})
 
             return token
 
-        return create_access_token(identity=self.username, additional_claims={'admin': 0})
+        return create_access_token(identity=self.id, additional_claims={'admin': 0})
 
     @staticmethod
     def generate_hash(zipcode):
