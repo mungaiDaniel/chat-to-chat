@@ -36,19 +36,37 @@ class MY_DATABASE:
         )"""
         cursor.execute(sql_command)
 
-    def save(self,format_str ):
-        '''method to save to db'''
+    def create_post_table():
+
         cursor = MY_DATABASE.connect_to_db()
+        sql_command = """CREATE TABLE IF NOT EXISTS "public"."post"(
+        id SERIAL,
+        user_id INTEGER NOT NULL,
+        title VARCHAR(500),
+        body VARCHAR(500),
+        PRIMARY KEY (id),
+        FOREIGN KEY (user_id)
+        REFERENCES \"user\" (id)
         
-        try:
-            cursor.execute(format_str)
-        except:
-            #log error
-            return {
-                "success":False,
-                "error":"error"
-            }
-        return {
-            "sucess": True,
-            "message": "successfully save to db"
-        }
+
+        )"""
+        cursor.execute(sql_command)
+
+    def create_comments_table():
+
+        cursor = MY_DATABASE.connect_to_db()
+        sql_command = """ CREATE TABLE IF NOT EXISTS "public"."comment"  (
+                id SERIAL ,
+                name VARCHAR(200) NOT NULL ,
+                body VARCHAR(400) NOT NULL,
+                post_id INTEGER NOT NULL,
+                user_id INTEGER NOT NULL,
+                email VARCHAR(50),
+                PRIMARY KEY (id),
+                FOREIGN KEY (post_id)
+                REFERENCES \"post\" (id),
+                FOREIGN KEY (user_id)
+                REFERENCES \"user\" (id)
+                    )"""
+        cursor.execute(sql_command)
+
