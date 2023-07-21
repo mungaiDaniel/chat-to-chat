@@ -17,9 +17,9 @@ CORS(app)
 app.register_blueprint(user_v1)
 
 MY_DATABASE.connect_to_db()
-# MY_DATABASE.create_Address_table()
-# MY_DATABASE.create_company_table()
 MY_DATABASE.create_user_table()
+MY_DATABASE.create_post_table()
+MY_DATABASE.create_comments_table()
     
 
 if __name__ == '__main__':

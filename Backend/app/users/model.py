@@ -63,11 +63,11 @@ class UserModel(MY_DATABASE):
     
         if permission_level == 1:
 
-            token = create_access_token(identity=self.email, additional_claims={'admin': 1})
+            token = create_access_token(identity=self.username, additional_claims={'admin': 1})
 
             return token
 
-        return create_access_token(identity=self.email, additional_claims={'admin': 0})
+        return create_access_token(identity=self.username, additional_claims={'admin': 0})
 
     @staticmethod
     def generate_hash(zipcode):
@@ -82,6 +82,7 @@ class UserModel(MY_DATABASE):
     def json_dumps(self):
         '''method to return a json object from a user'''
         ans = { 
+            "id": self.id,
            "name": self.name, 
             "username": self.username, 
             "email": self.email, 
@@ -110,7 +111,9 @@ class UserModel(MY_DATABASE):
     def find_by_email(cls, email):
         '''This method gets a user using email'''
         try:
-            cursor.execute("SELECT * FROM user WHERE email = %s", (email,))
+            format_str = f"""SELECT * FROM "\"user\" WHERE email = '{email}' 
+                        """
+            cursor.execute(format_str)
             user = cursor.fetchone()
             return list(user)
         except Exception as e:
@@ -121,7 +124,9 @@ class UserModel(MY_DATABASE):
     def find_by_username(cls, username):
         '''method to find a user by username'''
         try:
-            cursor.execute("select * from user where username = %s", (username,))
+            format_str = f"""SELECT * FROM \"user\" WHERE username = '{username}'  LIMIT 1
+                        """
+            cursor.execute(format_str)
             user = cursor.fetchone()
             return list(user)
         except Exception as e:
@@ -132,13 +137,15 @@ class UserModel(MY_DATABASE):
     def find_by_id(cls, id):
         '''method to find a user by id'''
         try:
-            cursor.execute("select * from user where id = %s", (id,))
+            format_str = f"""SELECT * FROM \"user\" WHERE id = id  LIMIT 1
+                        """
+            cursor.execute(format_str)
             retrieved_user = list(cursor.fetchone())
             user = UserModel(id=retrieved_user[0], name=retrieved_user[1], username=retrieved_user[2], email=retrieved_user[3], street=retrieved_user[4], suite=retrieved_user[5], city=retrieved_user[6], zipcode=retrieved_user[7], lat=retrieved_user[8],lng=retrieved_user[9], phone=retrieved_user[10],website=retrieved_user[11], company_name=retrieved_user[12],catchPhrase=retrieved_user[13], bs=retrieved_user[14], user_role=retrieved_user[15])
 
             return user.json_dumps()
-        except Exception:
-            return False
+        except Exception as e:
+            return {"error": e}
         
     @classmethod
     def get_all(cls):

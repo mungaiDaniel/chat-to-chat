@@ -42,40 +42,56 @@ def post():
 
 @user_v1.route('/login', methods=['POST'])
 def login():
-      data = request.get_json()
+    try:
+        data = request.get_json()
 
-      
-      current_user = UserModel.find_by_username(data['username'])
-      print('<><><><><>', current_user)
-      if current_user == False:
-            return {'message': 'username {} doesnt exist'.format(
-                data['username'])}, 404
-      zipcode = data['zipcode']
+        current_user = UserModel.find_by_username(data['username'])
+        print("<><><><><>", current_user)
 
-      hash = current_user[8]
+        if not current_user:
+            return {'message': 'username {} doesnt exist'.format(data['username'])}, 404
 
-      if not UserModel.verify_hash(zipcode, hash):
-            return {
-            "messgae":"Incorect password"
-        }, 401
-      if UserModel.find_by_email(data['email']):
-        if current_user.user_role == "user":
-                access_token = current_user.generate_auth_token(0)
+        zipcode = data['zipcode']
+        hash = current_user[7]
 
-        elif current_user.user_role == "premium":
-                access_token = current_user.generate_auth_token(1)
-
-        else:
-                return m_return(http_code=resp.PERMISSION_DENIED['http_code'], message=resp.PERMISSION_DENIED['message'],
-                            code=resp.PERMISSION_DENIED['code'])
+        if not UserModel.verify_hash(zipcode, hash):
+            return {"message": "Incorrect password"}, 401
         
-        return m_return(http_code=resp.SUCCESS['http_code'],
-                        message=resp.SUCCESS['message'],
-                        value={'access_token': access_token })
+        user = UserModel(*current_user)
+
+        # Assuming the user type is stored at index 15 of the user object
+        if user.user_role == 'admin':
+            permission_level = 1
+        elif user.user_role == 'premium':
+            permission_level = 2
+        else:
+            permission_level = 0
+
+        token = user.generate_auth_token(permission_level)
+
+        return jsonify({'token': token}), 200
+
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+    
+@user_v1.route('/user', methods=['GET'])
+def get_all_users():
+    users = UserModel.get_all()
+
+    return make_response(jsonify({
+        "status": 200,
+        "data": users
+    }), 200)
+
+@user_v1.route('/user/<int:id>', methods=['GET'])
+def get_one_user(id):
+    user = UserModel.find_by_id(id)
+
+    return make_response(jsonify({
+        "status": 200,
+        "data": user
+    }), 200)
       
-      return {
-        'message': 'wrong credentials'
-    }, 403
 
 
             
