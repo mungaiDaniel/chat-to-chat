@@ -12,22 +12,21 @@ MY_DATABASE.create_user_table()
 MY_DATABASE.create_post_table()
         
 class PostModel(MY_DATABASE):
-    '''Class to model a question'''
+    '''Class to model a post'''
 
     def __init__(self,id, user_id, title, body):
-        '''method to initialize Question class'''
+        '''method to initialize postModal class'''
         self.id = id
         self.user_id = user_id
         self.title = title
         self.body = body
 
     def save(self , user_id , title, body):
-        '''method to save a question'''
+        '''method to save a post'''
         format_str = f"""
          INSERT INTO public.post (user_id,title,body)
          VALUES ('{user_id}', '{title}','{body}') ;
          """
-        print("<><><><><>", format_str)
         cursor.execute(format_str)
         return {
             "user_id": user_id,
@@ -36,7 +35,7 @@ class PostModel(MY_DATABASE):
             
         }
     def json_dumps(self):
-        '''method to return a json object from the question details'''
+        '''method to return a json object from the post details'''
         obj = {
             "id": self.id,
             "title": self.title,
@@ -48,7 +47,7 @@ class PostModel(MY_DATABASE):
     
     @classmethod
     def get_by_id(cls, id):
-        '''method to get a question by id'''
+        '''method to get a post by id'''
         cursor.execute('SELECT * FROM "public"."post" WHERE id=%s', (id,))
         row = cursor.fetchone()
         if row == None:
@@ -61,7 +60,7 @@ class PostModel(MY_DATABASE):
         return retrieved_post
     @classmethod
     def get_all(cls):
-        '''method to get all questions'''
+        '''method to get all posts'''
         cursor.execute(
             f"SELECT * FROM public.post")
         rows = cursor.fetchall()
@@ -74,7 +73,7 @@ class PostModel(MY_DATABASE):
 
     @classmethod
     def get_all_user_questions(cls, user):
-        '''method to get all questions of a given user'''
+        '''method to get all posts of a given user'''
         post_owner = UserModel.find_by_id(user)
         if post_owner:
             cursor.execute("SELECT * FROM public.post WHERE user_id = %s", (user,))
@@ -89,7 +88,7 @@ class PostModel(MY_DATABASE):
 
     @classmethod
     def delete_question(cls, id):
-        '''method to delete a question'''
+        '''method to delete a post'''
         try:
             cursor.execute('DELETE FROM public.post CASCADE WHERE id = %s', (id,))
             return "successfully deleted"
