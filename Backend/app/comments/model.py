@@ -9,10 +9,10 @@ MY_DATABASE.create_post_table()
 MY_DATABASE.create_comments_table()
         
 class CommentsModel(MY_DATABASE):
-    '''Class to model an answer'''
+    '''Class to model an comment'''
 
     def __init__(self, id, name, body, post_id, user_id, email):
-        '''method to initialize Answer class'''
+        '''method to initialize commentMedel class'''
         self.id = id
         self.name = name
         self.body = body
@@ -21,7 +21,7 @@ class CommentsModel(MY_DATABASE):
         self.email = email
 
     def save(self, name, body, post_id, user_id, email):
-        '''method to save an answer'''
+        '''method to save an comment'''
         format_str = f"""INSERT INTO public.comment (name, body, post_id, user_id, email)
                  VALUES ('{name}', '{body}', '{post_id}', '{user_id}', '{email}');
                  """
@@ -35,7 +35,7 @@ class CommentsModel(MY_DATABASE):
         }
         
     def json_dumps(self):
-        '''method to return a json object from the answer details'''
+        '''method to return a json object from the comment details'''
         
         obj = {
             "id": self.id,
@@ -50,7 +50,7 @@ class CommentsModel(MY_DATABASE):
 
     @classmethod
     def get_all_post_comments(cls, post_id):
-        '''method to get all answers of a given question'''
+        '''method to get all comments of a given question'''
         cursor.execute(
             f"SELECT * FROM public.comment")
         rows = cursor.fetchall()
@@ -64,7 +64,7 @@ class CommentsModel(MY_DATABASE):
 
     @classmethod
     def get_by_id(cls, id):
-        '''method to get an answer by id'''
+        '''method to get an comment by id'''
         cursor.execute('SELECT * FROM "public"."comment" WHERE id=%s', (id,))
         row = cursor.fetchone()
         if row == None:
@@ -82,7 +82,7 @@ class CommentsModel(MY_DATABASE):
 
     @classmethod
     def update(cls, name, body,  user_id, id):
-        """Method to update an answer"""
+        """Method to update an comment"""
         format_str = f"""
          UPDATE public.comment SET name = '{name}' body = '{body}' WHERE id = {id};
          """
