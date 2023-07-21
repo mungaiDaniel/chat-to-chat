@@ -23,7 +23,7 @@ class CommentsModel(MY_DATABASE):
     def save(self, name, body, post_id, user_id, email):
         '''method to save an answer'''
         format_str = f"""INSERT INTO public.comment (name, body, post_id, user_id, email)
-                 VALUES ('{name}', {body}, {post_id},' {user_id}', '{email}');
+                 VALUES ('{name}', '{body}', '{post_id}', '{user_id}', '{email}');
                  """
         cursor.execute(format_str)
         return {
@@ -58,8 +58,7 @@ class CommentsModel(MY_DATABASE):
         for comment in rows:
             if comment[3] == (post_id):
                 comment_post = CommentsModel(id=comment[0], name=comment[1], body=comment[2], post_id=comment[3],
-                                         user_id=comment[4],
-                                         email=[5])
+                                         user_id=comment[4], email=[5])
                 comments_retrieved_dict.append(comment_post.json_dumps())
         return comments_retrieved_dict
 

@@ -16,7 +16,7 @@ def post():
     email = data['email']
     # if UserModel.find_by_username(data['username']):
     #         return {'message': 'This username is already taken,kindly try another username'}, 409
-    street= data['address']['street']
+    street= data["address"]["street"]
     suite = data["address"]["suite"]
     city = data["address"]["city"]
     zipcode =UserModel.generate_hash(data["address"]["zipcode"])
@@ -24,7 +24,7 @@ def post():
     lng = data["address"]["geo"]["lng"]
     phone = data["phone"]
     website = data["website"]
-    company_name = data["company"]["name"]
+    company_name = data["company"]["company_name"]
     catchPhrase = data["company"]["catchPhrase"]
     bs = data["company"]["bs"]
     user_role= "user"
@@ -46,7 +46,6 @@ def login():
         data = request.get_json()
 
         current_user = UserModel.find_by_username(data['username'])
-        print("<><><><><>", current_user)
 
         if not current_user:
             return {'message': 'username {} doesnt exist'.format(data['username'])}, 404
