@@ -1,23 +1,13 @@
-import './App.css';
-import 'bootstrap/dist/css/bootstrap.css';
-import Sizebar from './components/Sizebar';
-import Navbar from './components/Navbar';
-import React, { useState } from 'react';
+import Home from "./pages/home/Home";
+import Topbar from "./components/topbar/Topbar";
+
+
 
 function App() {
 
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-
-  const handleSidebarToggle = () => {
-    setIsSidebarOpen(!isSidebarOpen);
-  };
+  
   return (
-    <div className="App">
-      <Sizebar isSidebarOpen={isSidebarOpen} />
-      <Navbar isSidebarOpen={isSidebarOpen} handleSidebarToggle= {handleSidebarToggle}  />
-
-      
-    </div>
+    <Home />
   );
 }
 
