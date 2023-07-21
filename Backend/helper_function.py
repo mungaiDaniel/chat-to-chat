@@ -65,20 +65,20 @@ def login_user(self):
         content_type='application/json'
     )
     
-def post_quiz(self):
-    '''loginthe registered user'''
+def post_posts(self):
+    
     response = login_user(self)
     result = json.loads(response.data)
     self.assertIn("token", result)
-    new_question = {'user_id': 1, 'title': 'error sit voluptatem accusantium doloremque laudantium',
+    new_post = {'user_id': 1, 'title': 'error sit voluptatem accusantium doloremque laudantium',
                     'body': 'error sit voluptatem accusantium doloremque laudantiumerror sit volupta'}
-    response = self.client.post('api/v1/post', data=json.dumps(new_question),
+    response = self.client.post('api/v1/post', data=json.dumps(new_post),
                                 headers={'Authorization': f'Bearer {result["token"]}',
                                          'Content-Type': 'application' '/json'})
     return response
 
-def post_answer(self):
-    '''login the registered user'''
+def post_comments(self):
+    
     response = login_user(self)
     result = json.loads(response.data)
     self.assertIn("token", result)
