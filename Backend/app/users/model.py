@@ -86,9 +86,9 @@ class UserModel(MY_DATABASE):
            "name": self.name, 
             "username": self.username, 
             "email": self.email, 
-            "street": self.street,
             "address":{
-                "suite": self.suite, 
+            "street": self.street,
+            "suite": self.suite, 
             "city": self.city, 
             "zipcode": self.zipcode, 
             "lat": self.lat, 
