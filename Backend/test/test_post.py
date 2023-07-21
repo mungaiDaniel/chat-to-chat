@@ -9,7 +9,7 @@ from config import TestingConfig
 from helper_function import register_user
 from helper_function import post_quiz, register_user, login_user
 
-class TestUsers(unittest.TestCase):
+class TestPost(unittest.TestCase):
 
     def tearDown(self):
         MY_DATABASE.drop_users_table()
@@ -36,7 +36,7 @@ class TestUsers(unittest.TestCase):
         self.assertEqual(response.status_code, 201)
 
     def test_get_a_single_post(self):
-        # test can get a single question
+        # test can get a single post
         post_quiz(self)
         response = self.client.get(f'api/v1/post/1', content_type='application/json')
         result = json.loads(response.data.decode())
