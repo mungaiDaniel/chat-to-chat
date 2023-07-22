@@ -14,33 +14,39 @@ MY_DATABASE.create_post_table()
 class PostModel(MY_DATABASE):
     '''Class to model a post'''
 
-    def __init__(self,id, user_id, title, body):
+    def __init__(self,id, user_id, postpic, likes, body, date_created):
         '''method to initialize postModal class'''
         self.id = id
         self.user_id = user_id
-        self.title = title
+        self.postpic = postpic
+        self.likes = likes
         self.body = body
+        self.date_created = date_created
 
-    def save(self , user_id , title, body):
+    def save(self , user_id , postpic, likes,  body, date_created):
         '''method to save a post'''
         format_str = f"""
-         INSERT INTO public.post (user_id,title,body)
-         VALUES ('{user_id}', '{title}','{body}') ;
+         INSERT INTO public.post (user_id,postpic,likes,body,date_created)
+         VALUES ('{user_id}', '{postpic}','{likes}','{body}', '{str(datetime.datetime.now().date())}') ;
          """
         cursor.execute(format_str)
         return {
             "user_id": user_id,
-            "title": title,
+            "postpic": postpic,
+            "likes": likes,
             "body": body,
+            "date_created": str(date_created)
             
         }
     def json_dumps(self):
         '''method to return a json object from the post details'''
         obj = {
             "id": self.id,
-            "title": self.title,
-            "body": self.body,
             "user_id": self.user_id,
+            "postpic": self.postpic,
+            "likes": self.likes,
+            "body": self.body,
+            "date_created": str(self.date_created),
             "comments": CommentsModel.get_all_post_comments(self.id)
         }
         return obj
@@ -52,7 +58,7 @@ class PostModel(MY_DATABASE):
         row = cursor.fetchone()
         if row == None:
             return None
-        posts = PostModel(id=row[0], user_id=row[1], title=row[2], body=row[3])
+        posts = PostModel(id=row[0], user_id=row[1], postpic=row[2], likes=row[3], body=row[4], date_created=row[5])
 
         retrieved_post = posts.json_dumps()
         comment = CommentsModel.get_all_post_comments(post_id=id)
@@ -67,7 +73,7 @@ class PostModel(MY_DATABASE):
         list_dict = []
 
         for item in rows:
-            new = PostModel(id=item[0], user_id=item[1], title=item[2], body=item[3])
+            new = PostModel(id=item[0], user_id=item[1], postpic=item[2], likes=item[3], body=item[4], date_created=item[5])
             list_dict.append(new.json_dumps())
         return list_dict
 
@@ -81,7 +87,7 @@ class PostModel(MY_DATABASE):
             list_dict = []
 
             for item in rows:
-                new = PostModel(id=item[0], user_id=item[1], title=item[2], body=item[3])
+                new = PostModel(id=item[0], user_id=item[1], postpic=item[2], likes=item[3], body=item[4], date_created=item[5])
                 list_dict.append(new.json_dumps())
             return list_dict
         return {"message": "No user with that id"}, 404
@@ -97,10 +103,10 @@ class PostModel(MY_DATABASE):
 
     @classmethod
     def search_post(cls, body, title):
-        cursor.execute(f"SELECT * FROM post WHERE body LIKE '%{body}%' OR title LIKE '%{title}%'")
+        cursor.execute(f"SELECT * FROM post WHERE body LIKE '%{body}%'")
         rows = cursor.fetchall()
         list_dict = []
         for item in rows:
-            new = PostModel(id=item[0], user_id=item[1], title=item[2], body=item[3])
+            new = PostModel(id=item[0], user_id=item[1], postpic=item[2], likes=item[3], body=item[4], date_created=item[5])
             list_dict.append(new.json_dumps())
         return list_dict

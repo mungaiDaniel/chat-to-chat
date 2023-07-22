@@ -11,11 +11,13 @@ from app.comments.routes import comment_v1
 
 
 app = Flask(__name__)
+CORS(app, supports_credentials=True, resources={r"/*": {"origins": "*"}})
+app.config['CORS_HEADERS'] = 'Content-Type'
 app.config.from_object(DevelopmentConfig)
 app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(days=1)
 app.config["JWT_REFRESH_TOKEN_EXPIRES"] = timedelta(days=1)
 JWTManager(app)
-CORS(app)
+
 app.register_blueprint(user_v1)
 app.register_blueprint(post_v1)
 app.register_blueprint(comment_v1)

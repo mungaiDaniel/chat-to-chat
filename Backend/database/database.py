@@ -30,6 +30,8 @@ class MY_DATABASE:
         catchPhrase TEXT,
         bs TEXT,
         user_role VARCHAR(200) DEFAULT 'user',
+        personPic VARCHAR(200),
+        date_created VARCHAR(80),
         PRIMARY KEY (id)
         
 
@@ -42,8 +44,10 @@ class MY_DATABASE:
         sql_command = """CREATE TABLE IF NOT EXISTS "public"."post"(
         id SERIAL,
         user_id INTEGER NOT NULL,
-        title VARCHAR(500),
+        postpic VARCHAR(200),
+        likes INTEGER,
         body VARCHAR(500),
+        date_created VARCHAR(80),
         PRIMARY KEY (id),
         FOREIGN KEY (user_id)
         REFERENCES \"user\" (id)
@@ -57,11 +61,11 @@ class MY_DATABASE:
         cursor = MY_DATABASE.connect_to_db()
         sql_command = """ CREATE TABLE IF NOT EXISTS "public"."comment"  (
                 id SERIAL ,
-                name VARCHAR(200) NOT NULL ,
                 body VARCHAR(400) NOT NULL,
                 post_id INTEGER NOT NULL,
                 user_id INTEGER NOT NULL,
-                email VARCHAR(50),
+                email VARCHAR(50), 
+                date_created VARCHAR(80),
                 PRIMARY KEY (id),
                 FOREIGN KEY (post_id)
                 REFERENCES \"post\" (id),

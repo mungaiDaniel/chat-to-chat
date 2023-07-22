@@ -1,5 +1,6 @@
 from flask import Blueprint, make_response, jsonify, request
 from app.posts.model import PostModel
+import datetime
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 
 
@@ -10,10 +11,11 @@ post_v1 = Blueprint("post_v1", __name__, url_prefix='/api/v1')
 def post():
     data = request.get_json()
     user_id = get_jwt_identity()
-    title = data['title']
+    postpic = data['postpic']
+    likes = data['likes']
     body = data['body']
-    new_post = PostModel(id=None, user_id=user_id, title=title, body=body)
-    new_post.save(user_id=user_id, title=title, body=body)
+    new_post = PostModel(id=None, user_id=user_id, postpic=postpic, likes=likes, body=body, date_created=datetime.datetime.now())
+    new_post.save(user_id=user_id, postpic=postpic, likes=likes, body=body,date_created=datetime.datetime.now() )
 
     return make_response(jsonify({
         "status": 201,
