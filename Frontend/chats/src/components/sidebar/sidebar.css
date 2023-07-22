@@ -1,5 +1,5 @@
 .sidebar {
-    flex: 3;
+    flex: 1.5;
     height: calc(100vh - 50px);
     overflow-y: scroll;
     position: sticky;
@@ -54,3 +54,25 @@
     margin: 0;
     list-style: none;
   }
+
+  @media (max-width:1024px){
+    .sidebarListItemText, .sidebarButton, .sidebarFriendList{
+        display: none;
+    }
+    .sidebar{
+        flex: 0;
+        
+        padding-left: 1rem;
+        overflow:visible;
+    
+    }
+    .sidebarWrapper {
+        padding: 0;
+      }
+    
+    
+  }
+
+  @media(max-width:768px){}
+
+  @media(max-width:660px){}

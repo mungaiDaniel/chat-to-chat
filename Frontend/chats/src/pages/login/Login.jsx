@@ -1,13 +1,16 @@
 import "./login.css";
+import logo from "./logo.jpg"
 
 export default function Login() {
   return (
     <div className="login">
-      <div className="loginWrapper">
+      <div className="loginWrapper container">
         <div className="loginLeft">
-          <h3 className="loginLogo">Lamasocial</h3>
+        <img src={logo} alt=""  className="logopic"/>
+          <h3 className="loginLogo">Chat to Chats</h3>
+            
           <span className="loginDesc">
-            Connect with friends and the world around you on Lamasocial.
+            Chat to chat with your friends
           </span>
         </div>
         <div className="loginRight">
@@ -15,10 +18,6 @@ export default function Login() {
             <input placeholder="Email" className="loginInput" />
             <input placeholder="Password" className="loginInput" />
             <button className="loginButton">Log In</button>
-            <span className="loginForgot">Forgot Password?</span>
-            <button className="loginRegisterButton">
-              Create a New Account
-            </button>
           </div>
         </div>
       </div>

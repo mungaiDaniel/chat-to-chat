@@ -1,6 +1,4 @@
-.rightbar {
-    flex: 3.5;
-  }
+
   
   .rightbarWrapper {
     padding: 20px 20px 0 0;
@@ -81,3 +79,12 @@
     object-fit: cover;
     border-radius: 5px;
   }
+  @media (max-width:1024px){}
+
+  @media(max-width:768px){
+    .rightbar{
+        display: none;
+    }
+  }
+
+  @media(max-width:660px){}

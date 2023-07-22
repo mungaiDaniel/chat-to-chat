@@ -1,11 +1,29 @@
 import "./topbar.css"
 import { Search, Person, Chat, Notifications } from "@material-ui/icons";
+import Toolbar from '@material-ui/core/Toolbar';
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
 
 const Topbar = () => {
   return (
     <div className="topbarContainer">
     <div className="topbarLeft">
       <span className="logo">Chats</span>
+      <Toolbar>
+      <IconButton 
+        edge='start'
+        aria-label='menu'
+        data-bs-toggle="collapse"
+        data-bs-target="#navmenu"
+        className='navbar-toggler'
+        style={{
+          color: 'black'
+        }}
+      >
+        <MenuIcon/>
+      </IconButton>
+      </Toolbar>
+        
     </div>
     <div className="topbarCenter">
       <div className="searchbar">
