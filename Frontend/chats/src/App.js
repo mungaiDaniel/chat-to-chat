@@ -1,23 +1,26 @@
-import './App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import Sizebar from './components/Sizebar';
-import Navbar from './components/Navbar';
-import React, { useState } from 'react';
+import Home from "./pages/home/Home";
+import Login from "./pages/login/Login";
+import Profile from "./pages/profile/Profile";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+
+
+
 
 function App() {
 
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-
-  const handleSidebarToggle = () => {
-    setIsSidebarOpen(!isSidebarOpen);
-  };
+  
   return (
-    <div className="App">
-      <Sizebar isSidebarOpen={isSidebarOpen} />
-      <Navbar isSidebarOpen={isSidebarOpen} handleSidebarToggle= {handleSidebarToggle}  />
-
-      
-    </div>
+    <>
+    <Routes>
+      <Route exact path="/" element={<Home/>}/>
+    </Routes>
+    <Routes>
+      <Route exact path="/login" element={<Login/>}/>
+    </Routes>
+    <Routes>
+      <Route exact path="/profile" element={<Profile/>}/>
+    </Routes>
+    </>
   );
 }
 
