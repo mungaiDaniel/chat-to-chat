@@ -1,5 +1,5 @@
 import "./post.css";
-import { MoreVert } from "@material-ui/icons";
+import { MoreVert , Person } from "@material-ui/icons";
 import { Users } from "../../helperData";
 import { useState } from "react";
 
@@ -38,7 +38,7 @@ export default function Post({ post }) {
           <div className="postBottomLeft">
             <img className="likeIcon" src="assets/like.png" onClick={likeHandler} alt="" />
             <img className="likeIcon" src="assets/heart.png" onClick={likeHandler} alt="" />
-            <span className="postLikeCounter">{like} people like it</span>
+            <span className="postLikeCounter">{like} <Person/> like it</span>
           </div>
           <div className="postBottomRight">
             <span className="postCommentText">{post.comment} comments</span>

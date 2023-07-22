@@ -1,10 +1,14 @@
 .login {
     width: 100vw;
     height: 100vh;
-    background-color: #f0f2f5;
+    background-color: #ffffff;
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+  .logopic{
+    width: 70%;
+    margin: auto ;
   }
   
   .loginWrapper {
@@ -26,14 +30,17 @@
     font-weight: 800;
     color: #1775ee;
     margin-bottom: 10px;
+    margin: auto;
+
   }
   
   .loginDesc {
     font-size: 24px;
+    margin: auto;
   }
   
   .loginBox{
-      height: 300px;
+      height: 250px;
       padding: 20px;
       background-color: white;
       border-radius: 10px;
@@ -82,3 +89,38 @@
       font-weight: 500;
       cursor: pointer;
   }
+
+  @media (max-width:1024px){
+    .loginWrapper {
+        grid-template-columns: 2fr;
+        gap: 0;
+      }
+      .logopic{
+        width: 100%;
+      }
+      .loginLogo{
+        font-size: 40px;
+      }
+      .loginDesc{
+        font-size: 16px;
+      }
+      
+  }
+
+  @media(max-width:768px){
+    .loginWrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        
+      }
+      .loginLogo{
+        font-size: 24px;
+      }
+      .loginDesc{
+        font-size: 16px;
+      }
+
+  }
+
+  @media(max-width:660px){}

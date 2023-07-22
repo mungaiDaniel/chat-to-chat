@@ -74,3 +74,12 @@
       cursor: pointer;
       color: white;
   }
+  @media (max-width:1024px){}
+
+  @media(max-width:768px){}
+
+  @media(max-width:660px){
+    .shareIcon{
+        font-size: 5px;
+    }
+  }
