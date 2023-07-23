@@ -5,33 +5,34 @@ from database.database import MY_DATABASE
 
         
 cursor = MY_DATABASE.connect_to_db()
+MY_DATABASE.create_user_table()
 MY_DATABASE.create_post_table()
 MY_DATABASE.create_comments_table()
         
 class CommentsModel(MY_DATABASE):
     '''Class to model an comment'''
 
-    def __init__(self, id, name, body, post_id, user_id, email):
+    def __init__(self, id, body, post_id, user_id, email, date_created):
         '''method to initialize commentMedel class'''
         self.id = id
-        self.name = name
         self.body = body
         self.post_id = post_id
         self.user_id = user_id
         self.email = email
+        self.date_created = date_created
 
-    def save(self, name, body, post_id, user_id, email):
+    def save(self, body, post_id, user_id, email, date_created):
         '''method to save an comment'''
-        format_str = f"""INSERT INTO public.comment (name, body, post_id, user_id, email)
-                 VALUES ('{name}', '{body}', '{post_id}', '{user_id}', '{email}');
+        format_str = f"""INSERT INTO public.comment (body, post_id, user_id, email, date_created)
+                 VALUES ('{body}', '{post_id}', '{user_id}', '{email}', '{str(datetime.datetime.now().date())}');
                  """
         cursor.execute(format_str)
         return {
-            "name": name,
             "body": body,
             "post_id": post_id,
             "user_id": user_id,
-            "email": email
+            "email": email,
+            "date_created": str(date_created)
         }
         
     def json_dumps(self):
@@ -39,11 +40,11 @@ class CommentsModel(MY_DATABASE):
         
         obj = {
             "id": self.id,
-            "name": self.name,
             "body": self.body,
             "user_id": self.user_id,
             "post_id": self.post_id,
-            "email": self.email
+            "email": self.email,
+            "date_created": str(self.date_created)
             
         }
         return obj
@@ -57,8 +58,8 @@ class CommentsModel(MY_DATABASE):
         comments_retrieved_dict = []
         for comment in rows:
             if comment[3] == (post_id):
-                comment_post = CommentsModel(id=comment[0], name=comment[1], body=comment[2], post_id=comment[3],
-                                         user_id=comment[4], email=[5])
+                comment_post = CommentsModel(id=comment[0], body=comment[1], post_id=comment[2],
+                                         user_id=comment[3], email=comment[4], date_created=comment[5])
                 comments_retrieved_dict.append(comment_post.json_dumps())
         return comments_retrieved_dict
 
@@ -71,27 +72,26 @@ class CommentsModel(MY_DATABASE):
             return None
         comment = {
             "id": row[0],
-            "name": row[1],
-            "body": row[2],
-            "post_id": row[3],
-            "user_id": row[4],
-            "email": row[5]
+            "body": row[1],
+            "post_id": row[2],
+            "user_id": row[3],
+            "email": row[4],
+            "date_created": row[5]
         }
         retrieved_comment = comment
         return retrieved_comment
 
     @classmethod
-    def update(cls, name, body,  user_id, id):
+    def update(cls, body,  user_id, id):
         """Method to update an comment"""
         format_str = f"""
-         UPDATE public.comment SET name = '{name}' body = '{body}' WHERE id = {id};
+         UPDATE public.comment SET body = '{body}' WHERE id = {id};
          """
 
         cursor.execute(format_str)
 
         return {
             "id": id,
-            "name": name,
             "body": body,
             "user_id": user_id,
         }

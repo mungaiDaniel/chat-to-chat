@@ -30,6 +30,8 @@ class MY_DATABASE:
         catchPhrase TEXT,
         bs TEXT,
         user_role VARCHAR(200) DEFAULT 'user',
+        personPic VARCHAR(200),
+        date_created VARCHAR(80),
         PRIMARY KEY (id)
         
 
@@ -42,8 +44,10 @@ class MY_DATABASE:
         sql_command = """CREATE TABLE IF NOT EXISTS "public"."post"(
         id SERIAL,
         user_id INTEGER NOT NULL,
-        title VARCHAR(500),
+        postpic VARCHAR(200),
+        likes INTEGER,
         body VARCHAR(500),
+        date_created VARCHAR(80),
         PRIMARY KEY (id),
         FOREIGN KEY (user_id)
         REFERENCES \"user\" (id)
@@ -57,11 +61,11 @@ class MY_DATABASE:
         cursor = MY_DATABASE.connect_to_db()
         sql_command = """ CREATE TABLE IF NOT EXISTS "public"."comment"  (
                 id SERIAL ,
-                name VARCHAR(200) NOT NULL ,
                 body VARCHAR(400) NOT NULL,
                 post_id INTEGER NOT NULL,
                 user_id INTEGER NOT NULL,
-                email VARCHAR(50),
+                email VARCHAR(50), 
+                date_created VARCHAR(80),
                 PRIMARY KEY (id),
                 FOREIGN KEY (post_id)
                 REFERENCES \"post\" (id),
@@ -70,23 +74,44 @@ class MY_DATABASE:
                     )"""
         cursor.execute(sql_command)
 
+    def create_follows_table():
+
+        cursor = MY_DATABASE.connect_to_db()
+        sql_command = """ CREATE TABLE IF NOT EXISTS "public"."follow"(
+        
+                id SERIAL PRIMARY KEY,
+                follower_id INTEGER NOT NULL,
+                followee_id INTEGER NOT NULL,
+                FOREIGN KEY (follower_id) REFERENCES \"user\" (id),
+                FOREIGN KEY (followee_id) REFERENCES \"user\" (id)         
+        )  
+
+        """
+        cursor.execute(sql_command)
+
+
     def drop_post_table():
-        '''function to drop questions table'''
+        '''function to drop post table'''
         cursor = MY_DATABASE.connect_to_db()
         sql_command = """ DROP TABLE \"post\" CASCADE;"""
         cursor.execute(sql_command)
 
 
     def drop_comment_table():
-        '''function to drop answers table'''
+        '''function to drop comment table'''
         cursor =MY_DATABASE.connect_to_db()
         sql_command = """ DROP TABLE \"comment\" CASCADE;"""
         cursor.execute(sql_command)
 
 
     def drop_users_table():
-        '''function to drop answers table'''
+        '''function to drop user table'''
         cursor =MY_DATABASE.connect_to_db()
         sql_command = """ DROP TABLE \"user\" CASCADE;"""
+        cursor.execute(sql_command)
+
+    def drop_follow_table():
+        cursor =MY_DATABASE.connect_to_db()
+        sql_command = """ DROP TABLE \"follow\" CASCADE;"""
         cursor.execute(sql_command)
 
