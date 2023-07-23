@@ -1,0 +1,28 @@
+.btn {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-top: 20px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  /* Disabled button style */
+  .btn[disabled] {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+
+  @media(max-width:768px){
+    
+  }
+
+  @media(max-width:660px){
+    .btn{
+        font-size: 10px;
+    }
+  }

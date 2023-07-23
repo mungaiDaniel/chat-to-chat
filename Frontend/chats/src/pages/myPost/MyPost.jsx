@@ -11,7 +11,7 @@ const MyPost = () => {
 
   
     useEffect(() => {
-      axios.get("http://127.0.0.1:5000/api/v1/mypost"
+      axios.get("https://chat-fs55.onrender.com/api/v1/mypost"
       ,{
         headers:
           {
@@ -28,7 +28,7 @@ const MyPost = () => {
  
 
   useEffect(() => {
-    axios.get("http://127.0.0.1:5000/api/v1/user")
+    axios.get("https://chat-fs55.onrender.com/api/v1/user")
     .then((response) =>{
       setUser(response.data.data)
       setIsLoading(false)
@@ -41,6 +41,7 @@ const MyPost = () => {
  
   return (
     <>
+    <Topbar/>
         {
             posters.map((post) =>{
                 return <div className="post container" key={post.id} onClick={() => window.location.href= `/comments?id=${post.id}`}>
