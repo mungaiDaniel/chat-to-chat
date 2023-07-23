@@ -48,6 +48,25 @@ def unfollow_user(id):
     
     return jsonify({"message": "User unfollowed successfully!"})
 
+@follow_v1.route('/follow', methods=['GET'])
+def get_all_follows():
+    follow_list = FollowModel.get_all_follows()
+
+
+    return jsonify(follow_list)
+
+@follow_v1.route('/follows/<int:id>', methods=['GET'])
+def get_follow_by_id(id):
+    
+    follow = FollowModel.get_follow_by_id(id)
+
+    if follow:
+       
+        return jsonify(follow)
+    else:
+        return jsonify({"message": "Follow not found"}), 404
+    
+    
 
 
 

@@ -34,7 +34,7 @@ class FollowModel(MY_DATABASE):
         return{
             "message" : "unfollow successfully"
         }
-
+    @classmethod
     
     def json_dumps(self):
         '''method to return a json object from the post details'''
@@ -44,4 +44,27 @@ class FollowModel(MY_DATABASE):
             "followee_id": self.followee_id
         }
         return obj
+    @classmethod
+    def get_all_follows(cls):
+    
+        format_str = "SELECT * FROM public.follow"
+        cursor.execute(format_str)
+        follows = cursor.fetchall()
 
+        follow_list = []
+        for follow in follows:
+            follow_obj = cls(follow["id"], follow["follower_id"], follow["followee_id"])
+            follow_list.append(follow_obj.json_dumps())
+
+        return follow_list
+
+    @classmethod
+    def get_follow_by_id(cls, id):
+        format_str = f"SELECT * FROM public.follow WHERE id = '{id}'"
+        cursor.execute(format_str)
+        follow = cursor.fetchone()
+
+        if follow:
+            return cls(follow["id"], follow["follower_id"], follow["followee_id"]).json_dumps()
+        else:
+            return None
