@@ -61,3 +61,12 @@ def get_mypost():
         "data": posts
     }), 200)
 
+@post_v1.route('/post20', methods=['GET'])
+def get_20_post():
+    posts = PostModel.get_20_post()
+
+    return make_response(jsonify({
+        "status":200,
+        "data": posts
+    }), 200)
+
