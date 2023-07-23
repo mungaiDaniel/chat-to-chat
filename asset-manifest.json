@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/Chat-to-chat/static/css/main.d0c47d07.css",
+    "main.js": "/Chat-to-chat/static/js/main.ecf33b6e.js",
+    "static/media/code.jpg": "/Chat-to-chat/static/media/code.a8e63e05ed10844ffcd2.jpg",
+    "static/media/fontawesome-webfont.svg?v=4.7.0": "/Chat-to-chat/static/media/fontawesome-webfont.c1e38fd9e0e74ba58f7a.svg",
+    "static/media/fontawesome-webfont.eot": "/Chat-to-chat/static/media/fontawesome-webfont.8b43027f47b20503057d.eot",
+    "static/media/fontawesome-webfont.ttf?v=4.7.0": "/Chat-to-chat/static/media/fontawesome-webfont.1e59d2330b4c6deb84b3.ttf",
+    "static/media/logo.jpg": "/Chat-to-chat/static/media/logo.ac12adef377ffadc15f3.jpg",
+    "static/media/fontawesome-webfont.woff?v=4.7.0": "/Chat-to-chat/static/media/fontawesome-webfont.f691f37e57f04c152e23.woff",
+    "static/media/fontawesome-webfont.woff2?v=4.7.0": "/Chat-to-chat/static/media/fontawesome-webfont.20fd1704ea223900efa9.woff2",
+    "index.html": "/Chat-to-chat/index.html",
+    "main.d0c47d07.css.map": "/Chat-to-chat/static/css/main.d0c47d07.css.map",
+    "main.ecf33b6e.js.map": "/Chat-to-chat/static/js/main.ecf33b6e.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.d0c47d07.css",
+    "static/js/main.ecf33b6e.js"
+  ]
+}
