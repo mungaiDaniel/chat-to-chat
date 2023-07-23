@@ -1,6 +1,7 @@
 import "./feed.css"
 import Post from "../post/Post"
 import Share from "../share/Share"
+import Payrol from "../payrol/Payrol"
 import { Posts } from "../../helperData"
 import axios from 'axios'
 import {useState, useEffect} from 'react'
@@ -28,6 +29,7 @@ export default function Feed() {
       <div className="feed">
         <div className="feedWrapper">
           <Share />
+          <Payrol />
           {posters.map((p) => (
             <Post key={p.id} post={p} />
           ))}

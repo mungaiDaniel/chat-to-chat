@@ -28,7 +28,6 @@ const Topbar = () => {
   const classes = useStyles();
 
   const navigate = useNavigate();
-    const token = ''
     const logout = () =>{
       window.localStorage.removeItem('token')
       window.localStorage.removeItem('user_role')
@@ -87,7 +86,7 @@ const Topbar = () => {
           </Link>
         }
         {
-          hasToken && (<Link to="/posts">
+          hasToken && (<Link to="/mypost">
           <span className="topbarLink">Posts</span>
           </Link>)
         }
@@ -101,9 +100,6 @@ const Topbar = () => {
           (<Link to="/login">
             <span className="topbarLink">login</span>
             </Link>)
-        }
-        {
-          window.localStorage.getItem('token')
         }
         
         

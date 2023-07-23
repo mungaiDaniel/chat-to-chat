@@ -1,13 +1,30 @@
 import "./rightbar.css";
 import { Users } from "../../helperData";
 import Online from "../online/Online";
+import { Cake } from "@material-ui/icons";
+import React, { useState , useEffect } from 'react'
+import axios from 'axios'
 
 export default function Rightbar({ profile }) {
+
+  const[users, setUser] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+      axios.get("http://127.0.0.1:5000/api/v1/user")
+      .then((response) =>{
+      setUser(response.data.data)
+      setIsLoading(false)
+      })
+  }, [])
+  if (isLoading){
+    return <h2>Loading....</h2>
+}
   const HomeRightbar = () => {
     return (
       <>
         <div className="birthdayContainer">
-          <img className="birthdayImg" src="assets/gift.png" alt="" />
+          <Cake className="birthdayImg" />
           <span className="birthdayText">
             <b>Pola Foster</b> and <b>3 other friends</b> have a birhday today.
           </span>
@@ -15,7 +32,7 @@ export default function Rightbar({ profile }) {
         <img className="rightbarAd" src="assets/ad.png" alt="" />
         <h4 className="rightbarTitle">Online Friends</h4>
         <ul className="rightbarFriendList">
-          {Users.map((u) => (
+          {users.map((u) => (
             <Online key={u.id} user={u} />
           ))}
         </ul>
@@ -43,55 +60,21 @@ export default function Rightbar({ profile }) {
         </div>
         <h4 className="rightbarTitle">User friends</h4>
         <div className="rightbarFollowings">
-          <div className="rightbarFollowing">
-            <img
-              src="assets/person/1.jpeg"
-              alt=""
-              className="rightbarFollowingImg"
-            />
-            <span className="rightbarFollowingName">John Carter</span>
+          {
+            users.map((user) =>{
+              return  <div className="rightbarFollowing">
+              <img
+                src={user.personPic}
+                alt=""
+                className="rightbarFollowingImg"
+              />
+              <span className="rightbarFollowingName">{user.name}</span>
+            </div>
+          
+            })
+          }
           </div>
-          <div className="rightbarFollowing">
-            <img
-              src="assets/person/2.jpeg"
-              alt=""
-              className="rightbarFollowingImg"
-            />
-            <span className="rightbarFollowingName">John Carter</span>
-          </div>
-          <div className="rightbarFollowing">
-            <img
-              src="assets/person/3.jpeg"
-              alt=""
-              className="rightbarFollowingImg"
-            />
-            <span className="rightbarFollowingName">John Carter</span>
-          </div>
-          <div className="rightbarFollowing">
-            <img
-              src="assets/person/4.jpeg"
-              alt=""
-              className="rightbarFollowingImg"
-            />
-            <span className="rightbarFollowingName">John Carter</span>
-          </div>
-          <div className="rightbarFollowing">
-            <img
-              src="assets/person/5.jpeg"
-              alt=""
-              className="rightbarFollowingImg"
-            />
-            <span className="rightbarFollowingName">John Carter</span>
-          </div>
-          <div className="rightbarFollowing">
-            <img
-              src="assets/person/6.jpeg"
-              alt=""
-              className="rightbarFollowingImg"
-            />
-            <span className="rightbarFollowingName">John Carter</span>
-          </div>
-        </div>
+         
       </>
     );
   };

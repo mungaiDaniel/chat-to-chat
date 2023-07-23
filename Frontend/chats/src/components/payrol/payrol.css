@@ -1,0 +1,45 @@
+.payrol {
+    max-width: 400px;
+    margin: 0 auto; 
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Heading style */
+  .h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  /* Radio button container style */
+  .checklable {
+    display: block;
+    margin-bottom: 10px;
+  }
+  
+  /* Radio button style */
+  input[type="radio"] {
+    margin-right: 10px;
+  }
+  
+  /* Button style */
+  .btn {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-top: 20px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  /* Disabled button style */
+  .btn[disabled] {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }

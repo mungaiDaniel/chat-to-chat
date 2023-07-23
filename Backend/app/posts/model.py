@@ -78,7 +78,7 @@ class PostModel(MY_DATABASE):
         return list_dict
 
     @classmethod
-    def get_all_user_questions(cls, user):
+    def get_all_user_post(cls, user):
         '''method to get all posts of a given user'''
         post_owner = UserModel.find_by_id(user)
         if post_owner:
@@ -93,7 +93,7 @@ class PostModel(MY_DATABASE):
         return {"message": "No user with that id"}, 404
 
     @classmethod
-    def delete_question(cls, id):
+    def delete_post(cls, id):
         '''method to delete a post'''
         try:
             cursor.execute('DELETE FROM public.post CASCADE WHERE id = %s', (id,))
