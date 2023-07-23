@@ -3,6 +3,7 @@ import Login from "./pages/login/Login";
 import Profile from "./pages/profile/Profile";
 import Comments from "./pages/comments/Comments"
 import Follow from "./pages/follow/Follow";
+import MyPost from "./pages/myPost/MyPost";
 import {  Routes, Route } from "react-router-dom";
 import {QueryClientProvider, QueryClient} from 'react-query'
 
@@ -31,6 +32,10 @@ function App() {
     <Routes>
       <Route exact path="/follow" element={<Follow/>}/>
     </Routes>
+    <Routes>
+      <Route exact path="/mypost" element={<MyPost/>}/>
+    </Routes>
+    
     
     </QueryClientProvider>
     </>

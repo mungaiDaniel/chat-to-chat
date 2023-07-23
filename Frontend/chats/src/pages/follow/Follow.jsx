@@ -25,7 +25,7 @@ const Follow = () => {
      <>
         {
             users.map((user) =>{
-                return <div className='post'>
+                return <div className='post' key = {user.id}>
         <div className="postTop">
           <div className="postTopLeft">
             <img
@@ -39,7 +39,7 @@ const Follow = () => {
             <span className="postDate">{user.date_created}</span>
           </div>
           <div className="postTopRight">
-          <FollowButton key={user.id} user_id={user.id} user={user} />
+          <FollowButton key={user.id} user={user} />
           </div>
         </div>
         </div>
