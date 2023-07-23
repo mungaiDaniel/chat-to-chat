@@ -1,5 +1,6 @@
 from flask import Blueprint, make_response, jsonify, request
 from app.posts.model import PostModel
+from app.users.model import UserModel
 import datetime
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 
@@ -46,3 +47,17 @@ def get_on(id):
         "status": 404,
         "data": "No Post Found By That ID"
     }), 404)
+
+@post_v1.route('/mypost', methods=['GET'])
+@jwt_required()
+def get_mypost():
+
+    user = get_jwt_identity()
+
+    posts = PostModel.get_all_user_post(user)
+
+    return make_response(jsonify({
+        "status":200,
+        "data": posts
+    }), 200)
+

@@ -1,4 +1,4 @@
-from flask_jwt_extended import create_access_token
+from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 from flask import Blueprint, make_response, jsonify, request
 from app.users.model import UserModel
 from flask_cors import cross_origin
@@ -57,19 +57,16 @@ def login():
             return {"message": "Incorrect password"}, 401
         
         user = UserModel(*current_user)
-        print('<><><><', user)
 
         # Assuming the user type is stored at index 15 of the user object
-        if user.user_role == 'admin':
+        if user.user_role == 'premium':
             permission_level = 1
-        elif user.user_role == 'premium':
-            permission_level = 2
         else:
             permission_level = 0
 
         token = user.generate_auth_token(permission_level)
 
-        return jsonify({'token': token, "user_role": user.user_role}), 200
+        return jsonify({'token': token, "user_role": user.user_role, "id": user.id}), 200
 
     except Exception as e:
         return jsonify({'error': str(e)}), 500
@@ -91,6 +88,23 @@ def get_one_user(id):
         "status": 200,
         "data": user
     }), 200)
+
+@user_v1.route('/premium', methods=['PUT'])
+@jwt_required()
+def update_tO_premium():
+    user_role = request.get_json()
+
+    user_id = get_jwt_identity()
+
+    user = UserModel.update(user_role=user_role['user_role'] , id=user_id)
+
+    return make_response(jsonify({
+        "status": 200,
+        "data": user
+    }), 200)
+
+
+    
       
 
 

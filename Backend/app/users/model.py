@@ -198,4 +198,17 @@ class UserModel(MY_DATABASE):
             output.append(new.json_dumps())
             
         return output
+    
+    @classmethod
+    def update(cls, user_role, id):
+        """Method to update an user_role"""
+        format_str = f"""
+         UPDATE public.user SET user_role = '{user_role}' WHERE id = {id};
+         """
+
+        cursor.execute(format_str)
+
+        return {
+            "user_role": user_role
+        }
         
