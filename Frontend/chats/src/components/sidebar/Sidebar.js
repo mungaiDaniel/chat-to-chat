@@ -15,7 +15,7 @@ import {
 
 const Sidebar = () => {
   return (
-    <div className="sidebar navbar-expand-lg collapse navbar-collapse " id="navmenu">
+    <div className="sidebar ">
       <div className="sidebarWrapper">
         <ul className="sidebarList">
           <li className="sidebarListItem">

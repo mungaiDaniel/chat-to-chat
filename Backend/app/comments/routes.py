@@ -18,15 +18,14 @@ def post(id):
             "msg": "No question found"
         }), 404)
     data = request.get_json()
-    name = data['name']
     body = data['body']
     
     user_id = get_jwt_identity()
     email = UserModel.find_email(user_id)
 
-    new_comment = CommentsModel(id=None, name=name, body=body, post_id=id, user_id=user_id, email=email)
+    new_comment = CommentsModel(id=None, body=body, post_id=id, user_id=user_id, email=email, date_created=datetime.datetime.now())
 
-    new_comment.save(name, body, id, user_id, email)
+    new_comment.save(body, id, user_id, email, datetime.datetime.now())
     
 
     return make_response(jsonify({

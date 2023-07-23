@@ -1,9 +1,8 @@
 from flask_jwt_extended import create_access_token
 from flask import Blueprint, make_response, jsonify, request
 from app.users.model import UserModel
-from datetime import datetime
-import utils.responses as resp
-from utils.responses import m_return
+from flask_cors import cross_origin
+import datetime
 
 user_v1 = Blueprint('user-v1', __name__, url_prefix='/api/v1')
 
@@ -28,12 +27,13 @@ def post():
     catchPhrase = data["company"]["catchPhrase"]
     bs = data["company"]["bs"]
     user_role= "user"
+    personPic=data["personPic"]
 
 
-    new_user = UserModel(id=None, name=name, username=username, email=email, street=street, suite=suite, city=city, zipcode=zipcode, lat=lat,lng=lng, phone=phone,website=website, company_name=company_name,catchPhrase=catchPhrase, bs=bs, user_role=user_role)
+    new_user = UserModel(id=None, name=name, username=username, email=email, street=street, suite=suite, city=city, zipcode=zipcode, lat=lat,lng=lng, phone=phone,website=website, company_name=company_name,catchPhrase=catchPhrase, bs=bs, user_role=user_role, personPic=personPic, date_created=datetime.datetime.now())
 
 
-    new_user.save( name=name, username=username, email=email, street=street, suite=suite, city=city, zipcode=zipcode, lat=lat,lng=lng, phone=phone,website=website, company_name=company_name,catchPhrase=catchPhrase, bs=bs, user_role=user_role)
+    new_user.save( name=name, username=username, email=email, street=street, suite=suite, city=city, zipcode=zipcode, lat=lat,lng=lng, phone=phone,website=website, company_name=company_name,catchPhrase=catchPhrase, bs=bs, user_role=user_role, personPic=personPic, date_created=datetime.datetime.now())
 
     return make_response(jsonify({ 
         "status": 201,
@@ -57,6 +57,7 @@ def login():
             return {"message": "Incorrect password"}, 401
         
         user = UserModel(*current_user)
+        print('<><><><', user)
 
         # Assuming the user type is stored at index 15 of the user object
         if user.user_role == 'admin':
@@ -68,7 +69,7 @@ def login():
 
         token = user.generate_auth_token(permission_level)
 
-        return jsonify({'token': token}), 200
+        return jsonify({'token': token, "user_role": user.user_role}), 200
 
     except Exception as e:
         return jsonify({'error': str(e)}), 500
