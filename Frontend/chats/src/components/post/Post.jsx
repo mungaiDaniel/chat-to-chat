@@ -13,7 +13,7 @@ export default function Post({ post }) {
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    axios.get("http://127.0.0.1:5000/api/v1/user")
+    axios.get("https://chat-fs55.onrender.com/api/v1/user")
     .then((response) =>{
       setUser(response.data.data)
       setIsLoading(false)
@@ -27,7 +27,7 @@ export default function Post({ post }) {
 
 const handleItemClick = (e) => {
   if (e.target.tagName === "H5") {
-    window.location.href = "/comments?id=" + e.target.id;
+    window.location.href = "/comments?id=" + post.id;
   }
 };
   const likeHandler =()=>{
@@ -35,7 +35,7 @@ const handleItemClick = (e) => {
     setIsLiked(!isLiked)
   }
   return (
-    <div className="post" key={post.id} onClick={() => window.location.href= `/comments?id=${post.id}`}>
+    <div className="post" key={post.id} onClick={() => handleItemClick()}>
       <div className="postWrapper">
         <div className="postTop">
           <div className="postTopLeft">

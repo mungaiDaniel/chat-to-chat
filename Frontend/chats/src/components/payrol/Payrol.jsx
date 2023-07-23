@@ -4,7 +4,7 @@ import axios from 'axios'
 import './payrol.css'
 
 const Payrol = () => {
-    const [user_role, setUserId] = useState('mobile-money'); // Default to mobile money
+    const [user_role, setUserId] = useState('premium'); // Default to mobile money
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const [premum, setPremim] = useState(false)
@@ -19,7 +19,7 @@ const Payrol = () => {
         setLoading(true);
         setError('')
 
-        const response = await axios.put(`http://127.0.0.1:5000/api/v1/premium`, { user_role },
+        const response = await axios.put(`https://chat-fs55.onrender.com/api/v1/premium`, { user_role },
         {
             headers:
               {
@@ -45,7 +45,6 @@ const Payrol = () => {
 
   return (
     <> 
-    { premum && (
       <div className='container payrol'>
       <h2 className='h2'>Upgrade User Role</h2>
       <p>Select Payment Method:</p>
@@ -73,10 +72,6 @@ const Payrol = () => {
         {loading ? 'Processing...' : 'Upgrade Now'}
       </button>
       </div>
-
-    )
-      
-    }
     </>
   )
 }

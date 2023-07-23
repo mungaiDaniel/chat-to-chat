@@ -19,7 +19,7 @@ const Comments = () => {
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    axios.get(`http://127.0.0.1:5000/api/v1/comment/${question_id}`)
+    axios.get(`https://chat-fs55.onrender.com/api/v1/comment/${question_id}`)
     .then((response) =>{
         setComments(response.data.data)
         setIsLoading(false)
