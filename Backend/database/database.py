@@ -74,23 +74,44 @@ class MY_DATABASE:
                     )"""
         cursor.execute(sql_command)
 
+    def create_follows_table():
+
+        cursor = MY_DATABASE.connect_to_db()
+        sql_command = """ CREATE TABLE IF NOT EXISTS "public"."follow"(
+        
+                id SERIAL PRIMARY KEY,
+                follower_id INTEGER NOT NULL,
+                followee_id INTEGER NOT NULL,
+                FOREIGN KEY (follower_id) REFERENCES \"user\" (id),
+                FOREIGN KEY (followee_id) REFERENCES \"user\" (id)         
+        )  
+
+        """
+        cursor.execute(sql_command)
+
+
     def drop_post_table():
-        '''function to drop questions table'''
+        '''function to drop post table'''
         cursor = MY_DATABASE.connect_to_db()
         sql_command = """ DROP TABLE \"post\" CASCADE;"""
         cursor.execute(sql_command)
 
 
     def drop_comment_table():
-        '''function to drop answers table'''
+        '''function to drop comment table'''
         cursor =MY_DATABASE.connect_to_db()
         sql_command = """ DROP TABLE \"comment\" CASCADE;"""
         cursor.execute(sql_command)
 
 
     def drop_users_table():
-        '''function to drop answers table'''
+        '''function to drop user table'''
         cursor =MY_DATABASE.connect_to_db()
         sql_command = """ DROP TABLE \"user\" CASCADE;"""
+        cursor.execute(sql_command)
+
+    def drop_follow_table():
+        cursor =MY_DATABASE.connect_to_db()
+        sql_command = """ DROP TABLE \"follow\" CASCADE;"""
         cursor.execute(sql_command)
 

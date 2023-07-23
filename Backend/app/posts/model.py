@@ -27,7 +27,7 @@ class PostModel(MY_DATABASE):
         '''method to save a post'''
         format_str = f"""
          INSERT INTO public.post (user_id,postpic,likes,body,date_created)
-         VALUES ('{user_id}', '{postpic}','{likes}','{body}', '{str(datetime.datetime.now().date())}') ;
+         VALUES ('{user_id}', '{postpic}','{likes}','{body}', '{str(datetime.datetime.now())}') ;
          """
         cursor.execute(format_str)
         return {

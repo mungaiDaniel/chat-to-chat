@@ -168,6 +168,20 @@ class UserModel(MY_DATABASE):
             return {"error": e}
         
     @classmethod
+    def get_id(cls, id):
+        '''method to find a user by id'''
+        try:
+            format_str = f"""SELECT * FROM \"user\" WHERE id = {id}  LIMIT 1
+                        """
+            cursor.execute(format_str)
+            retrieved_user = list(cursor.fetchone())
+            user = UserModel(id=retrieved_user[0], name=retrieved_user[1], username=retrieved_user[2], email=retrieved_user[3], street=retrieved_user[4], suite=retrieved_user[5], city=retrieved_user[6], zipcode=retrieved_user[7], lat=retrieved_user[8],lng=retrieved_user[9], phone=retrieved_user[10],website=retrieved_user[11], company_name=retrieved_user[12],catchPhrase=retrieved_user[13], bs=retrieved_user[14], user_role=retrieved_user[15], personPic=retrieved_user[16], date_created=retrieved_user[17])
+
+            return user.id
+        except Exception as e:
+            return {"error": e}
+        
+    @classmethod
     def get_all(cls):
         
         ''' method to get all users'''

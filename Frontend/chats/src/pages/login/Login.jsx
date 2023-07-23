@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import { useNavigate} from "react-router-dom"; 
 import { useState } from "react";
+import Topbar from "../../components/topbar/Topbar";
 
 export default function Login() {
 
@@ -20,34 +21,25 @@ export default function Login() {
   const navigate = useNavigate()
 
   const LoginUser = async () => {
-    console.log(username, zipcode);
-    const data = {username:username, zipcode:zipcode  }
-
-    await fetch("http://127.0.0.1:5000/api/v1/login", {
-      method: 'POST',
-      headers: new Headers({
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Headers': 'Access-Control-Allow-Headers, Content-Type, Authorization',
-        'Access-Control-Allow-Methods': '*',
-        "Content-Type": "application/json"
-    }),
-      body: JSON.stringify(data),
+    console.log(username, zipcode)
+    await axios
+    .post("http://127.0.0.1:5000/api/v1/login",{
+      username,
+      zipcode
     })
-    .then((res) = {
-      
-       }).then(data => {
-      console.log(data)
+    .then((res) =>{
+      localStorage.setItem("user_role", res.data.user_role)
+      localStorage.setItem("token", res.data.token)
+      alert("successful login")
+     navigate('/')
     })
     .catch((err) =>{
       console.log(err)
-      setError("  Wrong zipcode or user credentials")
-      setTimeout(() =>{
-        setError('')
-      }, 2000)
-
     })
   }
   return (
+    <>
+    <Topbar/>
     <div className="login">
       <div className="loginWrapper container">
         <div className="loginLeft">
@@ -67,7 +59,7 @@ export default function Login() {
                     onChange={(e) => setUsername(e.target.value)}
                     />
             <TextField placeholder="Password" 
-                  type={showPassword ? "text" : "zipcode"}
+                  type={showPassword ? "text" : "password"}
                    className="loginInput"
                    value={zipcode}
                    onChange={(e) => setZipcode(e.target.value)}
@@ -76,11 +68,11 @@ export default function Login() {
                       <InputAdornment position="end">
                         <IconButton
                           onClick={() => setShowPassword((prev) => !prev)}
-                        >
+                          >
                           {showPassword ? (
                             <Icon icon="eva:eye-fill" />
-                          ) : (
-                            <Icon icon="eva:eye-off-fill" />
+                            ) : (
+                              <Icon icon="eva:eye-off-fill" />
                           )}
                         </IconButton>
                       </InputAdornment>
@@ -91,5 +83,6 @@ export default function Login() {
         </div>
       </div>
     </div>
+ </>
   );
 }
