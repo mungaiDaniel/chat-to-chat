@@ -53,7 +53,7 @@ class FollowModel(MY_DATABASE):
 
         follow_list = []
         for follow in follows:
-            follow_obj = cls(follow["id"], follow["follower_id"], follow["followee_id"])
+            follow_obj = FollowModel(id=follow[0], follower_id=follow[1], followee_id=follow[2])
             follow_list.append(follow_obj.json_dumps())
 
         return follow_list
@@ -62,9 +62,7 @@ class FollowModel(MY_DATABASE):
     def get_follow_by_id(cls, id):
         format_str = f"SELECT * FROM public.follow WHERE id = '{id}'"
         cursor.execute(format_str)
-        follow = cursor.fetchone()
+        follow = list(cursor.fetchone())
+        output = FollowModel(id=follow[0], follower_id=follow[1], followee_id=follow[2])
 
-        if follow:
-            return cls(follow["id"], follow["follower_id"], follow["followee_id"]).json_dumps()
-        else:
-            return None
+        return output
