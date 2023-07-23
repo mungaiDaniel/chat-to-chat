@@ -33,3 +33,7 @@ MY_DATABASE.create_comments_table()
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=5000, debug=True)
+
+
+
+# postgres://username:HGzNwJa5MCmYLakLgiw7IlslNPb6m3EL@dpg-ciujmt5iuiedpv0esq4g-a.oregon-postgres.render.com/online_chat_mlo2

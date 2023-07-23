@@ -110,3 +110,17 @@ class PostModel(MY_DATABASE):
             new = PostModel(id=item[0], user_id=item[1], postpic=item[2], likes=item[3], body=item[4], date_created=item[5])
             list_dict.append(new.json_dumps())
         return list_dict
+    
+    @classmethod
+    def get_20_post(cls):
+        '''method to get all posts'''
+        cursor.execute(
+            f"SELECT * FROM public.post LIMIT 20")
+        rows = cursor.fetchall()
+        list_dict = []
+
+        for item in rows:
+            new = PostModel(id=item[0], user_id=item[1], postpic=item[2], likes=item[3], body=item[4], date_created=item[5])
+            list_dict.append(new.json_dumps())
+        return list_dict
+
