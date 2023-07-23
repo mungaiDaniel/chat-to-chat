@@ -80,7 +80,14 @@
   }
   @media (max-width:1024px){}
 
-  @media(max-width:768px){}
+  @media(max-width:768px){
+    .share{
+      width: 70%;
+    }
+    .shareOption{
+      display: none;
+  }
+  }
 
   @media(max-width:660px){
     .shareIcon{

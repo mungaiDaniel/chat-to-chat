@@ -5,9 +5,16 @@
 .feedWrapper{
     padding: 20px;
 }
+.prim{
+    color: green;
+}
 @media (max-width:1024px){
 }
 
-@media(max-width:768px){}
+@media(max-width:768px){
+    .feed{
+        display: grid;
+    }
+}
 
 @media(max-width:660px){}

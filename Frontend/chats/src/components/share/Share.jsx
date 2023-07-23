@@ -12,7 +12,7 @@ export default function Share() {
   const[body, setBody] = useState("")
 
   const AddPost = async () =>{
-  const resp = await httpClient.post("http://127.0.0.1:5000/api/v1/post",{
+  const resp = await httpClient.post("https://chat-fs55.onrender.com/api/v1/post",{
     postpic,
     likes,
     body,

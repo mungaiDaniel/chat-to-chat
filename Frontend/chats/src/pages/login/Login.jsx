@@ -23,7 +23,7 @@ export default function Login() {
   const LoginUser = async () => {
     console.log(username, zipcode)
     await axios
-    .post("http://127.0.0.1:5000/api/v1/login",{
+    .post("https://chat-fs55.onrender.com/api/v1/login",{
       username,
       zipcode
     })

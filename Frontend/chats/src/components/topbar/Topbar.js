@@ -87,7 +87,7 @@ const Topbar = () => {
         }
         {
           hasToken && (<Link to="/mypost">
-          <span className="topbarLink">Posts</span>
+          <span className="topbarLink">My Posts</span>
           </Link>)
         }
         

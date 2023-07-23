@@ -8,7 +8,7 @@ const ShareComments = ({question_id}) => {
     const[body, setBody] = useState("")
 
     const AddComment = async () =>{
-        const resp = await httpClient.post(`http://127.0.0.1:5000/api/v1/comment/${question_id}`,{
+        const resp = await httpClient.post(`https://chat-fs55.onrender.com/api/v1/comment/${question_id}`,{
           body,
         },
         {
